@@ -1,6 +1,6 @@
 import config
 import getprices
-
+import os
 import requests
 import flask
 
