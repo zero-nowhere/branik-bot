@@ -13,7 +13,7 @@ for entry in product:
 	data_product = entry.find('a')["data-product"]
 	name_dict.update({ data_product : title })
 
-f = open("akce", "w")
+f = open("akce-branik", "w")
 
 array = []
 shops = soup.find_all('tr',class_="only_discount")
