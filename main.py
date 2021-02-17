@@ -20,7 +20,7 @@ def webhook():
         json_string = flask.request.get_data().decode('utf-8')
         update = telebot.types.Update.de_json(json_string)
         bot.process_new_updates([update])
-        return ''
+        return 'Test message', 200
     else:
         flask.abort(403)
 
@@ -45,4 +45,4 @@ def refresh_price(message):
 
 if __name__ == '__main__':
 	# main()
-	app.run(host="0.0.0.0", port=5000)
+	app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
