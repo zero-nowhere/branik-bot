@@ -31,21 +31,21 @@ def index():
 
 @bot.message_handler(commands=['branik','Branik'])
 def send_price(message):
-	with open ('akce/' + branik, 'r') as f:
+	with open ('akce/branik', 'r') as f:
 		prices = f.read()
 	bot.send_message(message.chat.id, prices, parse_mode='Markdown')
 	f.close()
 
 @bot.message_handler(commands=['gambrinus'])
 def send_price(message):
-	with open ('akce/' + branik, 'r') as f:
+	with open ('akce/gambrinus', 'r') as f:
 		prices = f.read()
 	bot.send_message(message.chat.id, prices, parse_mode='Markdown')
 	f.close()
 
 @bot.message_handler(commands=['svijany'])
 def send_price(message):
-	with open ('akce/' + branik, 'r') as f:
+	with open ('akce/svijany', 'r') as f:
 		prices = f.read()
 	bot.send_message(message.chat.id, prices, parse_mode='Markdown')
 	f.close()
