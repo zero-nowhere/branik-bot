@@ -60,7 +60,7 @@ def parse_beer(beer_name):
 				f.write(f"\n*{name_counter} / {dic['size']} l:*\n")
 				f.write(f"{dic['price']} - {dic['store']}, {dic['note']}\n")
 			elif name_counter == dic['beer'] and dic['size'] == size:
-				f.write(f"{dic['price']} - {dic['store']}, {dic['note']}2\n")
+				f.write(f"{dic['price']} - {dic['store']}, {dic['note']}\n")
 	f.close()
 	# array=[]
 
