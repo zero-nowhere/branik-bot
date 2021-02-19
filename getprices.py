@@ -2,13 +2,13 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
-array = []
+
 # could parse bottli sizes. 
 # but i want them in this specific order
 sizes_list = ["0.5", "0.33", "6x0.5", "0.7", "1", "2"]
 
 def parse_beer(beer_name):
-
+	array = []	
 	url = "https://www.kupi.cz/hledej?f=" + beer_name + "&vse=0"
 	
 	page = requests.get(url)
@@ -46,9 +46,10 @@ def parse_beer(beer_name):
 
 			array_temp.update({'size' : size, 'beer' : beer,  'price' : price, 'store' : store, 'note' : note })
 			array.append(array_temp)
+	# return array
 	
 
-def make_output(beer_name):
+# def make_output(beer_name, array):
 #	filename = beer_name
 	f = open("akce/" + beer_name, "w")
 	for size in sizes_list:
@@ -57,10 +58,11 @@ def make_output(beer_name):
 			if name_counter != dic['beer'] and dic['size'] == size:		
 				name_counter = dic['beer']
 				f.write(f"\n*{name_counter} / {dic['size']} l:*\n")
-				f.write(f"{dic['price']} - {dic['store']}\n")
+				f.write(f"{dic['price']} - {dic['store']}, {dic['note']}\n")
 			elif name_counter == dic['beer'] and dic['size'] == size:
-				f.write(f"{dic['price']} - {dic['store']}\n")
+				f.write(f"{dic['price']} - {dic['store']}, {dic['note']}2\n")
 	f.close()
+	# array=[]
 
 '''
 var = 'gambrinus'

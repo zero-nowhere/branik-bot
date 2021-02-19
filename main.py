@@ -53,9 +53,7 @@ def send_price(message):
 @bot.message_handler(commands=['refresh'])
 def refresh_price(message):
 	for beer in beer_list:
-
 		getprices.parse_beer(beer)
-		getprices.make_output(beer)
 		bot.send_message(message.chat.id, 'Getting price for ' + beer, parse_mode='Markdown')
 	
 
