@@ -45,7 +45,6 @@ def parse_beer(beer_name):
 		
 		if note != None:
 			note = note.getText().strip().replace('\xa0', ' ')
-			print(size, price, note)
 			try:
 				note = ', ' + note_pattern.findall(note)[0]
 			except IndexError:
