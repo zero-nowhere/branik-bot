@@ -48,7 +48,9 @@ def parse_beer(beer_name):
 			try:
 				note = ', ' + note_pattern.findall(note)[0]
 			except IndexError:
-				note=''
+				note = ''
+		else:
+			note = ''
 		
 
 		# change string to proper name of beer
