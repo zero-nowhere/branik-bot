@@ -9,7 +9,6 @@ def parse_beer(beer_name):
 	# could parse bottli sizes. 
 	# but i want them in this specific order
 	sizes_list = ["0.5", "0.33", "6x0.5", "0.7", "1", "2", "30", "50"]
-	
 	array = []	
 	url = "https://www.kupi.cz/hledej?f=" + beer_name + "&vse=0"
 	
@@ -76,3 +75,4 @@ def parse_beer(beer_name):
 			elif name_counter == dic['beer'] and dic['size'] == size:
 				f.write(f"{dic['price']} - {dic['store']}{dic['note']}\n")
 	f.close()
+
