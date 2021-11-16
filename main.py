@@ -1,4 +1,4 @@
-# import config
+import config
 import getprices
 
 import requests
@@ -59,7 +59,7 @@ def send_price(message):
 @bot.message_handler(commands=['refresh'])
 def refresh_price(message):
    	for beer in beer_list:
-        parse_beer(beer)
+        getprices.parse_beer(beer)
     bot.send_message(message.chat.id, 'Обновил цены', parse_mode='Markdown')
 
 
