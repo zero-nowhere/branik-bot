@@ -1,3 +1,5 @@
+APScheduler==3.8.1
+backports.zoneinfo==0.2.1
 beautifulsoup4==4.9.3
 certifi==2020.12.5
 chardet==4.0.0
@@ -8,7 +10,12 @@ itsdangerous==1.1.0
 Jinja2==2.11.3
 MarkupSafe==1.1.1
 pyTelegramBotAPI==3.7.6
+pytz==2021.3
+pytz-deprecation-shim==0.1.0.post0
 requests==2.25.1
+six==1.16.0
 soupsieve==2.2
+tzdata==2021.5
+tzlocal==4.1
 urllib3==1.26.3
 Werkzeug==1.0.1

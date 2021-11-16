@@ -3,11 +3,13 @@ import re
 from bs4 import BeautifulSoup
 
 
-# could parse bottli sizes. 
-# but i want them in this specific order
-sizes_list = ["0.5", "0.33", "6x0.5", "0.7", "1", "2"]
+
 
 def parse_beer(beer_name):
+	# could parse bottli sizes. 
+	# but i want them in this specific order
+	sizes_list = ["0.5", "0.33", "6x0.5", "0.7", "1", "2", "30", "50"]
+	
 	array = []	
 	url = "https://www.kupi.cz/hledej?f=" + beer_name + "&vse=0"
 	
@@ -29,14 +31,28 @@ def parse_beer(beer_name):
 		# find stuff
 		array_temp = {}
 		store = shop.find('span',class_="discounts_shop_name").find_next().find('span').getText()
+		
+		# Kupi.cz has an error with Tesco's name: it ends with a ' '. 
+		# This checks and removes the last character if it's a ' '.
+		if store[-1] == " ":
+			store = store[:-1]
+
 		size = shop.find('div',class_="discount_amount left").getText().strip().replace('\xa0', ' ')
 		size = re.sub(r'[^\d.x]', '', size)
 		price = shop.find('strong').getText().strip().replace('\xa0', ' ')
 		note = shop.find('div',class_="discount_note") #.getText().strip().replace('\xa0', ' ')
-		note_pattern = re.compile('(láhev|pet láhev|plech)')
+		note_pattern = re.compile('láhev|pet láhev|plech|láhve')
+		
+		
 		if note != None:
 			note = note.getText().strip().replace('\xa0', ' ')
-			note = note_pattern.findall(note)[0]
+			print(size, price, note)
+			try:
+				note = ', ' + note_pattern.findall(note)[0]
+			except IndexError:
+				note=''
+		
+
 		# change string to proper name of beer
 		valid_discount = shop.find('td', class_="text-left discounts_validity valid_discount")
 		if valid_discount != None:
@@ -46,11 +62,9 @@ def parse_beer(beer_name):
 
 			array_temp.update({'size' : size, 'beer' : beer,  'price' : price, 'store' : store, 'note' : note })
 			array.append(array_temp)
-	# return array
-	
 
-# def make_output(beer_name, array):
-#	filename = beer_name
+
+
 	f = open("akce/" + beer_name, "w")
 	for size in sizes_list:
 		name_counter = ''
@@ -58,14 +72,7 @@ def parse_beer(beer_name):
 			if name_counter != dic['beer'] and dic['size'] == size:		
 				name_counter = dic['beer']
 				f.write(f"\n*{name_counter} / {dic['size']} l:*\n")
-				f.write(f"{dic['price']} - {dic['store']}, {dic['note']}\n")
+				f.write(f"{dic['price']} - {dic['store']}{dic['note']}\n")
 			elif name_counter == dic['beer'] and dic['size'] == size:
-				f.write(f"{dic['price']} - {dic['store']}, {dic['note']}\n")
+				f.write(f"{dic['price']} - {dic['store']}{dic['note']}\n")
 	f.close()
-	# array=[]
-
-'''
-var = 'gambrinus'
-parse_beer(var)
-make_output(var)
-'''
