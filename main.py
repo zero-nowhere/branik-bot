@@ -33,6 +33,8 @@ def index():
     bot.set_webhook(url="https://{}.herokuapp.com/{}".format(config.APP_NAME, config.TG_TOKEN))
     return '1'
 
+
+
 @bot.message_handler(commands=['branik', 'Branik'])
 def send_price(message):
     with open('akce/branik', 'r') as f:
@@ -65,4 +67,6 @@ def refresh_price(message):
 
 if __name__ == '__main__':
     # main()
+    for beer in beer_list:
+        getprices.parse_beer(beer)
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
