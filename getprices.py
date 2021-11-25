@@ -36,8 +36,13 @@ def parse_beer(beer_name):
 		if store[-1] == " ":
 			store = store[:-1]
 
-		size = shop.find('div',class_="discount_amount left").getText().strip().replace('\xa0', ' ')
-		size = re.sub(r'[^\d.x]', '', size)
+		# Idiots at kupi.cz forget to tag volumes some times. 
+		try:
+			size = shop.find('div',class_="discount_amount left").getText().strip().replace('\xa0', ' ')
+			size = re.sub(r'[^\d.x]', '', size)
+		except AttributeError:
+			size=''
+
 		price = shop.find('strong').getText().strip().replace('\xa0', ' ')
 		note = shop.find('div',class_="discount_note") #.getText().strip().replace('\xa0', ' ')
 		note_pattern = re.compile('láhev|pet láhev|plech|láhve')
