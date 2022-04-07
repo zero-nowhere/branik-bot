@@ -30,6 +30,8 @@ def parse_beer(beer_name):
 		# find stuff
 		array_temp = {}
 		store = shop.find('span',class_="discounts_shop_name").find_next().find('span').getText()
+		store = " ".join(store.split())
+
 		
 		# Kupi.cz has an error with Tesco's name: it ends with a ' '. 
 		# This checks and removes the last character if it's a ' '.
