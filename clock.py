@@ -12,6 +12,6 @@ def scheduled_job():
     for beer in beer_list:
         getprices.parse_beer(beer)
     bot.send_message(203013998, 'Updated prices')
-    print('This job is run every day at 7.')
+    print('This job is run every day at 5.')
 
 sched.start()
