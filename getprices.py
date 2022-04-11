@@ -3,8 +3,6 @@ import re
 from bs4 import BeautifulSoup
 
 
-
-
 def parse_beer(beer_name):
 	# could parse bottli sizes. 
 	# but i want them in this specific order
