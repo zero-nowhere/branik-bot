@@ -1,19 +1,14 @@
 import config
 import getprices
 
-import requests
 import flask
 import os
-
 import telebot
 
 app = flask.Flask(__name__)
-
 bot = telebot.TeleBot(config.TG_TOKEN)
-
 URL = 'https://api.telegram.org/bot' + config.TG_TOKEN + '/'
 
-beer_list = ['branik', 'gambrinus', 'svijany']
 
 @app.route('/' + config.TG_TOKEN, methods=['POST'])
 def webhook():
@@ -34,7 +29,6 @@ def index():
     return '1'
 
 
-
 @bot.message_handler(commands=['branik', 'Branik'])
 def send_price(message):
     with open('akce/branik', 'r') as f:
@@ -45,14 +39,15 @@ def send_price(message):
 
 @bot.message_handler(commands=['gambrinus', 'Gambrinus'])
 def send_price(message):
-    with open ('akce/gambrinus', 'r') as f:
+    with open('akce/gambrinus', 'r') as f:
         prices = f.read()
     bot.send_message(message.chat.id, prices, parse_mode='Markdown')
     f.close()
 
+
 @bot.message_handler(commands=['svijany', 'Svijany'])
 def send_price(message):
-    with open ('akce/svijany', 'r') as f:
+    with open('akce/svijany', 'r') as f:
         prices = f.read()
     bot.send_message(message.chat.id, prices, parse_mode='Markdown')
     f.close()
@@ -60,13 +55,13 @@ def send_price(message):
 
 @bot.message_handler(commands=['refresh'])
 def refresh_price(message):
-    for beer in beer_list:
+    for beer in config.beer_list:
         getprices.parse_beer(beer)
     bot.send_message(message.chat.id, 'Обновил цены', parse_mode='Markdown')
 
 
 if __name__ == '__main__':
     # main()
-    for beer in beer_list:
+    for beer in config.beer_list:
         getprices.parse_beer(beer)
     app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
